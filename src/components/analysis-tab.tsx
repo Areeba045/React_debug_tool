@@ -10,7 +10,7 @@ interface AnalysisTabProps {
   onCopy?  : ()=> void
 }
 
-export default function AnalysisTab({ title, content, type  , onCopy}: AnalysisTabProps) {
+export default function AnalysisTab({ content, type  , onCopy}: AnalysisTabProps) {
   if (type === "text") {
     return (
       <div className="p-5 space-y-3">
