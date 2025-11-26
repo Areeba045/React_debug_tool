@@ -1,10 +1,11 @@
 "use client"
 
 import { Copy } from "lucide-react"
+import type React from "react"
 
 interface AnalysisTabProps {
   title: string
-  content: string | string[]
+  content: (string | string[] | React.ReactNode);
   type: "text" | "code" | "list"
   onCopy?  : ()=> void
 }
