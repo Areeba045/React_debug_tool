@@ -6,9 +6,10 @@ interface AnalysisTabProps {
   title: string
   content: string | string[]
   type: "text" | "code" | "list"
+  onCopy?  : ()=> void
 }
 
-export default function AnalysisTab({ title, content, type }: AnalysisTabProps) {
+export default function AnalysisTab({ title, content, type  , onCopy}: AnalysisTabProps) {
   if (type === "text") {
     return (
       <div className="p-5 space-y-3">
@@ -23,7 +24,7 @@ export default function AnalysisTab({ title, content, type }: AnalysisTabProps) 
       <div className="space-y-2">
         <div className="flex items-center justify-between px-5 pt-5 pb-3">
           <p className="text-xs text-blue-300 font-semibold">FIXED CODE</p>
-          <button className="p-1 hover:bg-blue-900/20 rounded transition">
+          <button className="p-1 hover:bg-blue-900/20 rounded transition" onClick={onCopy}>
             <Copy className="w-4 h-4 text-blue-400" />
           </button>
         </div>

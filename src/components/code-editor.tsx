@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo , forwardRef , useImperativeHandle , useRef } from "react"
 
 interface CodeEditorProps {
   value: string
@@ -8,9 +8,17 @@ interface CodeEditorProps {
   placeholder?: string
 }
 
-export default function CodeEditor({ value, onChange, placeholder }: CodeEditorProps) {
-  const lines = useMemo(() => value.split("\n"), [value])
 
+
+ const  CodeEditor = forwardRef(({ value, onChange, placeholder }: CodeEditorProps , ref) => {
+  
+  const lines = useMemo(() => value.split("\n"), [value])
+  const textRef = useRef<HTMLTextAreaElement>(null);
+
+
+  useImperativeHandle(ref , () => ({
+    getValue : () => textRef.current?.value || ""
+  }))
   return (
     <div className="relative rounded-lg overflow-hidden border border-blue-900/30 bg-slate-900/50 backdrop-blur-sm shadow-lg">
       <div className="flex">
@@ -28,6 +36,7 @@ export default function CodeEditor({ value, onChange, placeholder }: CodeEditorP
         {/* Code input */}
         <div className="flex-1 relative">
           <textarea
+            ref={textRef}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
@@ -40,3 +49,7 @@ export default function CodeEditor({ value, onChange, placeholder }: CodeEditorP
     </div>
   )
 }
+)
+
+
+export default CodeEditor;

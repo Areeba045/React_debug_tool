@@ -4,6 +4,9 @@
 import { Copy } from "lucide-react"
 import CodeEditor from "./code-editor"
 import ErrorInput from "./error-input"
+import { useRef } from "react"
+
+
 
 
 interface Inputsection {
@@ -15,7 +18,16 @@ interface Inputsection {
 }
 
 export default function CodeInputSection({code , error , setCode , setError , onAnalyze} : Inputsection) {
+const editerRef = useRef<{getValue : () => string}>(null)
 
+const handelCopy = () => {
+  const textCopy = editerRef.current?.getValue() || "";
+  navigator.clipboard.writeText(textCopy)
+}
+
+//  const handelCopy =() => {
+//   navigator.clipboard.writeText(code);
+//  }
 
   return (
     <div className="lg:col-span-2 space-y-6">
@@ -26,12 +38,13 @@ export default function CodeInputSection({code , error , setCode , setError , on
             Your Code
           </h2>
           <div className="flex gap-2">
-            <button className="p-1.5 hover:bg-blue-900/20 rounded transition text-blue-300">
+            <button onClick={handelCopy}
+            className="p-1.5 hover:bg-blue-900/20 rounded transition text-blue-300">
               <Copy className="w-4 h-4" />
             </button>
           </div>
         </div>
-        <CodeEditor value={code} onChange={setCode} placeholder="Paste your code here..." />
+        <CodeEditor ref={editerRef} value={code} onChange={setCode} placeholder="Paste your code here..." />
       </div>
 
       <div className="space-y-3">
