@@ -17,7 +17,7 @@ async function errorTrack(code : string , error : string ) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-goog-api-Key": import.meta.env.VITE_Helper_key ,
+          "X-goog-api-Key": import.meta.env.VITE_HELPER_KEY ,
         },
         body: JSON.stringify({
           contents: [
